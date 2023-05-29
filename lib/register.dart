@@ -26,7 +26,13 @@ class RegisterPageState extends State<RegisterPage>
         _isLoading = true;
       });
 
-      final response = await dio.post("URL API PATH", data: {"username": _username.text, "password": _password.text});
+      final response = await dio.post(
+        "https://kripto-chat.vercel.app/register",
+        data: {"username": _username.text, "password": _password.text},
+        options: Options(
+          headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        )
+      );
 
       if (response.statusCode == 200) {
         // Kalau berhasil
@@ -108,12 +114,13 @@ class RegisterPageState extends State<RegisterPage>
                     style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Color.fromRGBO(44, 61, 99, 1))),
                     child: const Text('Submit'),
                   ),
+                  SizedBox(height: 10,),
                   GestureDetector(
                     onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));},
-                    child: RichText(text: TextSpan(text: "Don't have an account? ", style: TextStyle(color: Color.fromRGBO(44, 61, 99, 1)), children: [
+                    child: RichText(text: TextSpan(text: "Already have an account? ", style: TextStyle(color: Color.fromRGBO(44, 61, 99, 1)), children: [
                       TextSpan(
                         text: "Click here",
-                        style: TextStyle(color: Color.fromRGBO(44, 61, 99, 1), fontWeight: FontWeight.w700)
+                        style: TextStyle(color: Color.fromRGBO(68, 109, 200, 1), fontWeight: FontWeight.w700)
                       )
                     ])),
                   )

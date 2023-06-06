@@ -38,15 +38,18 @@ class LoginPageState extends State<LoginPage>
       );
 
       if (response.statusCode == 200) {
-        if (await storage.containsKey(key: 'token') == true) {
-          print("info sudah ada: ${await storage.read(key: 'token')}");
-          Navigator.push(context, MaterialPageRoute(builder: (context) {return ChatRoom();}));
-        }
-        else {
-          await storage.write(key: 'token', value: response.data["jwt_token"].toString());
-          print("info belum ada: ${await storage.read(key: 'token')}");
-          Navigator.push(context, MaterialPageRoute(builder: (context) {return ChatRoom();}));
-        }
+        await storage.write(key: 'token', value: response.data["jwt_token"].toString());
+        print("info belum ada: ${await storage.read(key: 'token')}");
+        Navigator.push(context, MaterialPageRoute(builder: (context) {return ChatRoom();}));
+        // if (await storage.containsKey(key: 'token') == true) {
+        //   print("info sudah ada: ${await storage.read(key: 'token')}");
+        //   Navigator.push(context, MaterialPageRoute(builder: (context) {return ChatRoom();}));
+        // }
+        // else {
+        //   await storage.write(key: 'token', value: response.data["jwt_token"].toString());
+        //   print("info belum ada: ${await storage.read(key: 'token')}");
+        //   Navigator.push(context, MaterialPageRoute(builder: (context) {return ChatRoom();}));
+        // }
       }
       else {
         setState(() {

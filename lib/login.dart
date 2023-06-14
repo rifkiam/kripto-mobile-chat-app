@@ -78,7 +78,7 @@ class LoginPageState extends State<LoginPage>
               child: Column(
                 // crossAxisAlignment: CrosAxisAlignment.center,
                 children: [
-                  Text("Chatchit", style: TextStyle(fontWeight: FontWeight.w800, color: Color.fromRGBO(44, 61, 99, 1), fontSize: 24)),
+                  const Text("Chatchit", style: TextStyle(fontWeight: FontWeight.w800, color: Color.fromRGBO(44, 61, 99, 1), fontSize: 24)),
                   SizedBox(height: ScreenHeight/3.75),
                   Container(
                     decoration: BoxDecoration(color: Color.fromRGBO(248, 250, 236, 1), borderRadius: BorderRadius.all(Radius.circular(24))),

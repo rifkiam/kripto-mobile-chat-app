@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'private.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'chatroom.dart';
 
 class AddFriend extends StatefulWidget {
   const AddFriend({Key? key}) : super(key: key);
@@ -14,8 +15,27 @@ class AddFriend extends StatefulWidget {
 
 class AddFriendState extends State<AddFriend> {
   final _controller = TextEditingController();
+  final storage = const FlutterSecureStorage();
+  final dio = Dio();
+  // final textFieldKey = GlobalKey<FormFieldState<String>>();
+  late String token;
+  String _errorMessage = '';
 
   Future<void> addFriend() async{
+    final response = await dio.post(
+      "https://kripto-chat.vercel.app/add",
+      data: {"username": _controller.text},
+      options: Options(
+        headers: {'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': "Bearer ${await storage.read(key: 'token')}"}
+      )
+    );
+    if(response.data["statusCode"] == 200 && response.statusCode == 200) {
+      print("object");
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ChatRoom()),);
+    }
+    else if(response.data["statusCode"] == 404 || response.data["statusCode"] == 409) {
+      _errorMessage = "Username not found";
+    }
 
   }
 
@@ -45,6 +65,7 @@ class AddFriendState extends State<AddFriend> {
                 controller: _controller,
               ),
               SizedBox(height: 8),
+              Text(_errorMessage, style: const TextStyle(color: Colors.red)),
               ElevatedButton(
                 onPressed: addFriend,
                 style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Color.fromRGBO(44, 61, 99, 1))),

@@ -32,23 +32,23 @@ class MyHomePage extends StatelessWidget {
   {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(image: DecorationImage(image: AssetImage("images/bg.jpeg"), fit: BoxFit.fitHeight)),
+        decoration: const BoxDecoration(image: DecorationImage(image: AssetImage("images/bg.jpeg"), fit: BoxFit.fitHeight)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text("Chat Easy Using Chatchit", textAlign: TextAlign.center, style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
-            SizedBox(height: 20,),
+            const Text("Chat Easy Using Chatchit", textAlign: TextAlign.center, style: TextStyle(color: Color.fromRGBO(44, 61, 99, 1), fontSize: 24, fontWeight: FontWeight.bold),),
+            const SizedBox(height: 20,),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 144),
+              padding: const EdgeInsets.symmetric(horizontal: 144),
               child: InkWell(
                 onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) {return LoginPage();}));},
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(16),
                   child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 12),
-                    decoration: BoxDecoration(color: Color.fromRGBO(44, 61, 99, 1)),
-                    child: Text("Proceed", textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    decoration: const BoxDecoration(color: Color.fromRGBO(44, 61, 99, 1)),
+                    child: const Text("Proceed", textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
                   ),
                 ),
               ),

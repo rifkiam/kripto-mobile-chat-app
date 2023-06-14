@@ -41,15 +41,6 @@ class LoginPageState extends State<LoginPage>
         await storage.write(key: 'token', value: response.data["jwt_token"].toString());
         print("info belum ada: ${await storage.read(key: 'token')}");
         Navigator.push(context, MaterialPageRoute(builder: (context) {return ChatRoom();}));
-        // if (await storage.containsKey(key: 'token') == true) {
-        //   print("info sudah ada: ${await storage.read(key: 'token')}");
-        //   Navigator.push(context, MaterialPageRoute(builder: (context) {return ChatRoom();}));
-        // }
-        // else {
-        //   await storage.write(key: 'token', value: response.data["jwt_token"].toString());
-        //   print("info belum ada: ${await storage.read(key: 'token')}");
-        //   Navigator.push(context, MaterialPageRoute(builder: (context) {return ChatRoom();}));
-        // }
       }
       else {
         setState(() {
@@ -89,39 +80,47 @@ class LoginPageState extends State<LoginPage>
                 children: [
                   Text("Chatchit", style: TextStyle(fontWeight: FontWeight.w800, color: Color.fromRGBO(44, 61, 99, 1), fontSize: 24)),
                   SizedBox(height: ScreenHeight/3.75),
-                  Text("Login", style: TextStyle(fontWeight: FontWeight.w800, color: Color.fromRGBO(44, 61, 99, 1), fontSize: 20)),
-                  SizedBox(height: 8,),
-                  TextFormField(
-                    controller: _username,
-                    decoration: const InputDecoration(
-                      labelText: 'Username',
-                      labelStyle: TextStyle(fontWeight: FontWeight.w500)
+                  Container(
+                    decoration: BoxDecoration(color: Color.fromRGBO(248, 250, 236, 1), borderRadius: BorderRadius.all(Radius.circular(24))),
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                    child: Column(
+                      children: [
+                        Text("Login", style: TextStyle(fontWeight: FontWeight.w800, color: Color.fromRGBO(44, 61, 99, 1), fontSize: 20)),
+                        SizedBox(height: 8,),
+                        TextFormField(
+                          controller: _username,
+                          decoration: const InputDecoration(
+                              labelText: 'Username',
+                              labelStyle: TextStyle(fontWeight: FontWeight.w500, fontSize: 16)
+                          ),
+                          validator: (value) {
+                            if(value!.isEmpty) {
+                              return 'Please enter a valid username';
+                            }
+                          },
+                        ),
+                        SizedBox(height: 20,),
+                        TextFormField(
+                          controller: _password,
+                          decoration: const InputDecoration(
+                              labelText: 'Password',
+                              labelStyle: TextStyle(fontWeight: FontWeight.w500, fontSize: 16)
+                          ),
+                          obscureText: true,
+                          validator: (value) {
+                            if(value!.isEmpty) {
+                              return 'Enter the corresponding password';
+                            }
+                          },
+                        ),
+                        SizedBox(height: 12),
+                        ElevatedButton(
+                          onPressed: sendRequest,
+                          style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Color.fromRGBO(44, 61, 99, 1))),
+                          child: const Text('Submit'),
+                        ),
+                      ],
                     ),
-                    validator: (value) {
-                      if(value!.isEmpty) {
-                        return 'Please enter a valid username';
-                      }
-                    },
-                  ),
-                  SizedBox(height: 20,),
-                  TextFormField(
-                    controller: _password,
-                    decoration: const InputDecoration(
-                      labelText: 'Password',
-                      labelStyle: TextStyle(fontWeight: FontWeight.w500)
-                    ),
-                    obscureText: true,
-                    validator: (value) {
-                      if(value!.isEmpty) {
-                        return 'Enter the corresponding password';
-                      }
-                    },
-                  ),
-                  SizedBox(height: 12),
-                  ElevatedButton(
-                    onPressed: sendRequest,
-                    style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Color.fromRGBO(44, 61, 99, 1))),
-                    child: const Text('Submit'),
                   ),
                   if (_errorMessage.isNotEmpty)
                     Text(

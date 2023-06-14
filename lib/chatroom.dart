@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'private.dart';
+import 'add_friend.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -42,9 +43,14 @@ class ChatRoomState extends State<ChatRoom>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(248, 250, 236, 1),
+      backgroundColor: const Color.fromRGBO(248, 250, 236, 1),
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(44, 61, 99, 1),
+        backgroundColor: const Color.fromRGBO(44, 61, 99, 1),
+      ),
+      floatingActionButton: FloatingActionButton (
+        onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) {return const AddFriend();})),
+        backgroundColor: const Color.fromRGBO(44, 61, 99, 1),
+        child: const Icon(Icons.add),
       ),
       body: FutureBuilder<List?>(
         future: _contacts,
@@ -67,7 +73,7 @@ class ChatRoomState extends State<ChatRoom>
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                   decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.black, style: BorderStyle.solid, width: 1))),
                   child: InkWell(
-                    onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) {return PrivateChat(idChat: contact["idChat"],);}));},
+                    onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) {return PrivateChat(idChat: contact["idChat"], sender: contact["username"],);}));},
                     child: Text(contact["username"], style: TextStyle(fontSize: 18)),
                   ),
                 );

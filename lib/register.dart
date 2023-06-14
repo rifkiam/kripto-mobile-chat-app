@@ -74,31 +74,47 @@ class RegisterPageState extends State<RegisterPage>
                 children: [
                   Text("Chatchit", style: TextStyle(fontWeight: FontWeight.w800, color: Color.fromRGBO(44, 61, 99, 1), fontSize: 24)),
                   SizedBox(height: ScreenHeight/3.75),
-                  Text("Register", style: TextStyle(fontWeight: FontWeight.w800, color: Color.fromRGBO(44, 61, 99, 1), fontSize: 20)),
-                  SizedBox(height: 8,),
-                  TextFormField(
-                    controller: _username,
-                    decoration: const InputDecoration(
-                      labelText: 'Username',
+                  Container(
+                    decoration: BoxDecoration(color: Color.fromRGBO(248, 250, 236, 1), borderRadius: BorderRadius.all(Radius.circular(24))),
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                    child: Column(
+                      children: [
+                        Text("Register", style: TextStyle(fontWeight: FontWeight.w800, color: Color.fromRGBO(44, 61, 99, 1), fontSize: 20)),
+                        SizedBox(height: 8,),
+                        TextFormField(
+                          controller: _username,
+                          decoration: const InputDecoration(
+                            labelText: 'Username',
+                            labelStyle: TextStyle(fontWeight: FontWeight.w500, fontSize: 16)
+                          ),
+                          validator: (value) {
+                            if(value!.isEmpty) {
+                              return 'Please enter a valid username';
+                            }
+                          },
+                        ),
+                        SizedBox(height: 20,),
+                        TextFormField(
+                          controller: _password,
+                          decoration: const InputDecoration(
+                            labelText: 'Password',
+                            labelStyle: TextStyle(fontWeight: FontWeight.w500, fontSize: 16)
+                          ),
+                          obscureText: true,
+                          validator: (value) {
+                            if(value!.isEmpty) {
+                              return 'Enter the corresponding password';
+                            }
+                          },
+                        ),
+                        SizedBox(height: 12),
+                        ElevatedButton(
+                          onPressed: sendRequest,
+                          style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Color.fromRGBO(44, 61, 99, 1))),
+                          child: const Text('Submit'),
+                        ),
+                      ],
                     ),
-                    validator: (value) {
-                      if(value!.isEmpty) {
-                        return 'Please enter a valid username';
-                      }
-                    },
-                  ),
-                  SizedBox(height: 20,),
-                  TextFormField(
-                    controller: _password,
-                    decoration: const InputDecoration(
-                      labelText: 'Password',
-                    ),
-                    obscureText: true,
-                    validator: (value) {
-                      if(value!.isEmpty) {
-                        return 'Enter the corresponding password';
-                      }
-                    },
                   ),
                   if (_errorMessage.isNotEmpty)
                     Text(
@@ -108,16 +124,10 @@ class RegisterPageState extends State<RegisterPage>
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                  SizedBox(height: 12),
-                  ElevatedButton(
-                    onPressed: sendRequest,
-                    style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Color.fromRGBO(44, 61, 99, 1))),
-                    child: const Text('Submit'),
-                  ),
                   SizedBox(height: 10,),
                   GestureDetector(
                     onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));},
-                    child: RichText(text: TextSpan(text: "Already have an account? ", style: TextStyle(color: Color.fromRGBO(44, 61, 99, 1)), children: [
+                    child: RichText(text: const TextSpan(text: "Already have an account? ", style: TextStyle(color: Color.fromRGBO(44, 61, 99, 1)), children: [
                       TextSpan(
                         text: "Click here",
                         style: TextStyle(color: Color.fromRGBO(68, 109, 200, 1), fontWeight: FontWeight.w700)
